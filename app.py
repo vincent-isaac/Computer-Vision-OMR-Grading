@@ -2,6 +2,7 @@ import streamlit as st
 import cv2
 import numpy as np
 import utlis
+import copy
 
 #while(True)
 st.title('OMG Grading')
@@ -50,8 +51,8 @@ if st.button('Start Grading'):
             img = cv2.resize(img, (widthImg, heightImg)) # RESIZE IMAGE
         except:
             pass
-        #imgFinal = img.copy()
-        imgFinal = np.zeros((heightImg,widthImg, 3), np.uint8) # CREATE A BLANK IMAGE FOR TESTING DEBUGGING IF REQUIRED
+        imgFinal = copy.copy(img)
+        imgBlank = np.zeros((heightImg,widthImg, 3), np.uint8) # CREATE A BLANK IMAGE FOR TESTING DEBUGGING IF REQUIRED
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # CONVERT IMAGE TO GRAY SCALE
         imgBlur = cv2.GaussianBlur(imgGray, (5, 5), 1) # ADD GAUSSIAN BLUR
         imgCanny = cv2.Canny(imgBlur,10,70) # APPLY CANNY 
