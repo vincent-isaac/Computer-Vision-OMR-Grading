@@ -1,4 +1,4 @@
-from streamlit_webrtc import webrtc_streamer, RTCConfiguration
+from streamlit_webrtc import webrtc_streamer
 import av
 import streamlit as st
 import cv2
@@ -15,9 +15,6 @@ for i in range(1, NO_q+1):
     ans_key.append(ans-1)
 
 ########################################################################
-RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-)
 heightImg = 700
 widthImg  = 700
 questions= NO_q
@@ -132,5 +129,7 @@ def video_frame_callback(frame):
 webrtc_streamer(
     key="example",
     video_frame_callback=video_frame_callback,
-    rtc_configuration=RTC_CONFIGURATION
+    rtc_configuration={
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
 )
